@@ -51,7 +51,9 @@ class monitor():
                             self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, water, gdist])
                             self.edges_data .append([nodenum, edgea])
                             self.distance_data .append([nodenum,edgea,gdist])
-                            self.num_of_sightings .append([numsight])
+                            for i in range(len(line[0])):
+                                if line[4] != 0:
+                                    self.num_of_sightings .append([numsight])
                             if not nodenum in self.nodepoints:
                                 self.nodepoints.append(nodenum)
                             index += 1
@@ -72,9 +74,13 @@ def Bubble_Sort(unsorted_list):
                 temp_storage = unsorted_list[j] 
                 unsorted_list[j] = unsorted_list[j+1] 
                 unsorted_list[j+1] = temp_storage 
+
+    
     return unsorted_list 
+
 cm=monitor(size)
 unsorted_list = cm.num_of_sightings
+
 
 # #bubblesort in ascendind order
 # def Bubble_Sort(unsorted_list):
@@ -134,6 +140,7 @@ if __name__ == '__main__':
     # print(max_sight)
     print('\n')
     print('\n')
+    print('list of location data :')
     print(cm.list_of_locations)
 
     print('\n')
@@ -153,4 +160,5 @@ if __name__ == '__main__':
 #     for i in range(len(arr)):
 #         print("% d" % arr[i], end=" ")   
     print("Sorted list is, ")
-print("Sorted List using Bubble Sort Technique: ", Bubble_Sort(unsorted_list))
+    print("Sorted List using Bubble Sort Technique: ",Bubble_Sort(unsorted_list))
+    print("\r")
