@@ -3,26 +3,35 @@ import csv
 from collections import defaultdict
 import sys
 import math
+from array import array
+from array import *
+import numpy as np
 
 filename ="CrocData.csv"
 size = 100
 
 
-class monitor():
-    list_of_locations =[]
-    edges_data = []
-    num_of_sightings = []
 
-    import csv
+
+
+
+
+class monitor():
+    # list_of_locations =[]
+    # edges_data = []
+    # num_of_sightings = []
+    # sortedarry = []
+    # elements = num_of_sightings
+
     def __init__(self, size):
         self.distance_data = []
         self.list_of_locations = []
         self.edges_data = []
-        num_of_sightings= []
+        self.num_of_sightings= []
         self.matrix = [[0 for x in range(size)]for y in range(size)]
         self.nodepoints=[]
         self.readData()
-
+        self.graph = defaultdict(list)
 
     def readData(self):    
         with open(filename,'r') as data:
@@ -46,16 +55,32 @@ class monitor():
                             if not nodenum in self.nodepoints:
                                 self.nodepoints.append(nodenum)
                             index += 1
-                            # print (index)
-            
+    
                             
         data.close
+        
+
+
+
+
+
+def Bubble_Sort(unsorted_list):
+    for i in range(0,len(unsorted_list)-1): 
+        for j in range(len(unsorted_list)-1): 
+            if(unsorted_list[j]>unsorted_list[j+1]):  
+                temp_storage = unsorted_list[j] 
+                unsorted_list[j] = unsorted_list[j+1] 
+                unsorted_list[j+1] = temp_storage 
+    return unsorted_list 
+cm=monitor(size)
+unsorted_list = cm.num_of_sightings
+
+
+
+    
+
 
 class graph:
-
-    def __init__(self):
-        # default dictionary to store graph
-        self.graph = defaultdict(list)
 
 
     def build_graph():
@@ -85,6 +110,7 @@ if __name__ == '__main__':
     cm=monitor(size)
     g=graph
     
+    
     # print (cm.list_of_locations)
     # print (cm.nodepoints)
     # user_location = input ("Enter your location")
@@ -107,9 +133,11 @@ if __name__ == '__main__':
     # print(cm.num_of_sightings)
 
     print("\r")
- 
 # using sorted and lambda to print list sorted
 # by in descending order
-    print("The list printed sorting in descending order: ")
-    if cm.num_of_sightings !="":
-        print(sorted(cm.num_of_sightings, key=lambda i: ',', reverse=True))
+# cm.bubbleSort(arr)
+#     print("Sorted array is:")
+#     for i in range(len(arr)):
+#         print("% d" % arr[i], end=" ")   
+    print("Sorted list is, ")
+print("Sorted List using Bubble Sort Technique: ", Bubble_Sort(unsorted_list))
