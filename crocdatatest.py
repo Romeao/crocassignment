@@ -1,3 +1,4 @@
+from ast import Num
 import csv
 from collections import defaultdict
 import sys
@@ -7,22 +8,17 @@ filename ="CrocData.csv"
 size = 100
 
 
-
-
-
-
-
-
-
 class monitor():
     list_of_locations =[]
     edges_data = []
+    num_of_sightings = []
 
     import csv
     def __init__(self, size):
-        self.dist = []
+        self.distance_data = []
         self.list_of_locations = []
         self.edges_data = []
+        num_of_sightings= []
         self.matrix = [[0 for x in range(size)]for y in range(size)]
         self.nodepoints=[]
         self.readData()
@@ -40,11 +36,13 @@ class monitor():
                             env = line[3]
                             numsight = line[4]
                             edgea = line[5]
-                            edgeb = line[6]
-                            water = line[7]
-                            gdist = line[8]
-                            self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, edgeb, water, gdist])
-                            self.edges_data .append([edgea, edgeb])
+                            water = line[6]
+                            gdist= line[7]
+                            
+                            self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, water, gdist])
+                            self.edges_data .append([nodenum, edgea])
+                            self.distance_data .append([nodenum,edgea,gdist])
+                            self.num_of_sightings .append([numsight])
                             if not nodenum in self.nodepoints:
                                 self.nodepoints.append(nodenum)
                             index += 1
@@ -53,33 +51,39 @@ class monitor():
                             
         data.close
 
+class graph:
 
-def build_graph():
-    cm=monitor(size)
-    for i in range (len(cm.edges_data)):
-        edges = cm.edges_data
+    def __init__(self):
+        # default dictionary to store graph
+        self.graph = defaultdict(list)
+
+
+    def build_graph():
+        cm=monitor(size)
+        for i in range (len(cm.edges_data)):
+            edges = cm.edges_data
+        
+            graph = defaultdict(list)
+        
+        # Loop to iterate over every
+        # edge of the graph
+            for edge in edges:
+                a, b = edge[0], edge[1]
+            
+            # Creating the graph
+            # as adjacency list
+                graph[a].append(b)
+                graph[b].append(a)
+            return graph 
+
     
-        graph = defaultdict(list)
-     
-    # Loop to iterate over every
-    # edge of the graph
-        for edge in edges:
-            a, b = edge[0], edge[1]
-         
-        # Creating the graph
-        # as adjacency list
-            graph[a].append(b)
-            graph[b].append(a)
-        return graph         
+
     
-
-
-
-
 
 
 if __name__ == '__main__':
     cm=monitor(size)
+    g=graph
     
     # print (cm.list_of_locations)
     # print (cm.nodepoints)
@@ -90,5 +94,22 @@ if __name__ == '__main__':
     print('\nLocation:',max_sight[0],'number of Previous sightings:',max_sight[4])
     # print(max_sight)
     print('\n')
-    graph = build_graph()
-    print(graph)
+    print('\n')
+    print(cm.list_of_locations)
+
+    print('\n')
+    print('\n')
+    graph = graph.build_graph()
+    print('The Graph implemenatation is:',graph)
+    print('\n')
+    # print('sorted number of sightings is')
+    # cm.num_of_sightings.sort()
+    # print(cm.num_of_sightings)
+
+    print("\r")
+ 
+# using sorted and lambda to print list sorted
+# by in descending order
+    print("The list printed sorting in descending order: ")
+    if cm.num_of_sightings !="":
+        print(sorted(cm.num_of_sightings, key=lambda i: ',', reverse=True))
