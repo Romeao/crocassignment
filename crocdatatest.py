@@ -63,11 +63,12 @@ class monitor():
 
 
 
-
+#bubblesort in decendind order
 def Bubble_Sort(unsorted_list):
+
     for i in range(0,len(unsorted_list)-1): 
         for j in range(len(unsorted_list)-1): 
-            if(unsorted_list[j]>unsorted_list[j+1]):  
+            if(unsorted_list[j]<unsorted_list[j+1] ):  
                 temp_storage = unsorted_list[j] 
                 unsorted_list[j] = unsorted_list[j+1] 
                 unsorted_list[j+1] = temp_storage 
@@ -75,6 +76,18 @@ def Bubble_Sort(unsorted_list):
 cm=monitor(size)
 unsorted_list = cm.num_of_sightings
 
+# #bubblesort in ascendind order
+# def Bubble_Sort(unsorted_list):
+
+#     for i in range(0,len(unsorted_list)-1): 
+#         for j in range(len(unsorted_list)-1): 
+#             if(unsorted_list[j]>unsorted_list[j+1] ):  
+#                 temp_storage = unsorted_list[j] 
+#                 unsorted_list[j] = unsorted_list[j+1] 
+#                 unsorted_list[j+1] = temp_storage 
+#     return unsorted_list 
+# cm=monitor(size)
+# unsorted_list = cm.num_of_sightings
 
 
     
