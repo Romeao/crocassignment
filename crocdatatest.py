@@ -1,11 +1,11 @@
-from ast import Num
+
 import csv
 from collections import defaultdict
 import sys
 import math
 from array import array
 from array import *
-import numpy as np
+
 
 filename ="CrocData.csv"
 size = 100
@@ -51,16 +51,15 @@ class monitor():
                             self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, water, gdist])
                             self.edges_data .append([nodenum, edgea])
                             self.distance_data .append([nodenum,edgea,gdist])
-                            for i in range(len(line[0])):
-                                if line[4] != 0:
-                                    self.num_of_sightings .append([numsight])
+                            if line[0] != '':
+                                self.num_of_sightings .append([numsight])
                             if not nodenum in self.nodepoints:
                                 self.nodepoints.append(nodenum)
                             index += 1
     
                             
         data.close
-        
+
 
 
 
