@@ -79,7 +79,7 @@ class monitor():
 
 def find_distance():
         distance = []
-        for i in range (1, (len(cm.cords))):
+        for i in range (1, ((len(cm.cords)))):
             # distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5
             distance = math.sqrt((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)
             cm.gdist. append(distance)
@@ -226,7 +226,7 @@ if __name__ == '__main__':
     print('\n')
     print('distance between x and y in linear algorithm :')
     find_distance()
-    for i in range ((len(cm.gdist))-1):
+    for i in range ((len(cm.gdist))):
             print(f"distance between x1: {cm.cords[i][0]} y1: {cm.cords[i][1]} and x2: {cm.cords[i+1][0]} y2: {cm.cords[i+1][1]} is {cm.gdist[i]}")
     
     # print(cm.dist[-1])
