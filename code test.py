@@ -5,6 +5,7 @@ import sys
 import math
 from array import array
 from array import *
+from turtle import distance
 
 
 filename ="CrocData.csv"
@@ -57,15 +58,15 @@ class monitor():
                             water:int = line[7]
                             gdist:float = line[8]
                             
-                            self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, edgeb, water, gdist])
+                            self.list_of_locations .append([(nodenum), (x), (y), (env), (numsight), (edgea), (edgeb), (water), (gdist)])
                             if line[5] != '':
-                                self.edges_data .append([int(line[5]), int(line[6]), int(line[7])])
+                                self.edges_data .append([int(edgea), int(edgeb), int(water)])
                             self.distance_data .append([nodenum,edgea,edgeb,gdist])
                             if line[1] != '':
                                 self.cords .append((float(x), float(y)))
-                                # for i in range (0, (len(self.cords))):
-                                #     res = [float(ele) for ele in self.cords[i]]
-                                #     self.dis. append(res)
+                                for i in range (0, (len(self.cords))):
+                                    res = [float(ele) for ele in self.cords[i]]
+                                    self.dis. append(res)
                             if line[0] != '':
                                 self.num_of_sightings .append([numsight])
                             if not nodenum in self.nodepoints:
@@ -77,12 +78,12 @@ class monitor():
 
 
 def find_distance():
-        distance=[]
+        distance = []
         for i in range (0, (len(cm.cords))):
-            distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5
-            print(distance)
-            cm.gdist.append(distance)
-        return distance
+            # distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5
+            distance = math.sqrt((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)
+            cm.gdist. append(distance)
+        # return distance
 
 
 # def location_check(self, a, b):
@@ -169,7 +170,7 @@ def printGraph(graph):
         # print current vertex and all its neighboring vertices
         for (dest, weight) in graph.adjList[src]:
             print(f'({src} —> {dest}, {weight}) ', end='')
-        print()
+        print()        #uncomment to print one after another 
  
  
 
@@ -221,8 +222,13 @@ if __name__ == '__main__':
  
     # print adjacency list representation of the graph
     printGraph(graph)
-
-    # print(cm.dis)
+    print('\n')
+    print('\n')
+    print('distance between x and y in linear algorithm :')
+    print(find_distance())
+    for i in range ((len(cm.gdist))-1):
+            print(f"distance between x1: {cm.cords[i][0]} y1: {cm.cords[i][1]} and x2: {cm.cords[i+1][0]} y2: {cm.cords[i+1][1]} is {cm.gdist[i]}")
+    
     # print(cm.dist[-1])
 
     print('\n')
