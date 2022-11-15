@@ -13,118 +13,77 @@ size = 100
 
 
 
+
+
+
+
 class monitor():
     # list_of_locations =[]
-    # edges_data = []
+    edges_data = []
     # num_of_sightings = []
     # sortedarry = []
     # elements = num_of_sightings
+    cords =[]
+
+
 
     def __init__(self, size):
         self.distance_data = []
-#        self.dist = []
         self.list_of_locations = []
-        self.locations = []
         self.edges_data = []
         self.num_of_sightings= []
         self.matrix = [[0 for x in range(size)]for y in range(size)]
         self.nodepoints=[]
+        self.dis = []
         self.cords = []
-        self.gdist = []
-        self.graph = {}
+        self.dist=[]
+        self.gdist=[]
         self.readData()
+        self.graph = defaultdict(list)
+        
 
-    # ''' Finds the distance between each connected edge in the map'''
-    # def find_distance():
-    #     distance = []
-    #     cords = cm.cords
-    #     for i in range(0, ((len(cords)) - 1)):
-    #         # distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5)
-    #         cm.gdist.append(distance)
-
-
-
-
-    ''' Reads the data from the crocdata file into a set of corresponding lists'''
-    def readData(self):
+    def readData(self):    
         with open(filename,'r') as data:
                         csv_data_reader = csv.reader(data)
                         index = 0
                         next(csv_data_reader)
                         for line in csv_data_reader:
+                            nodenum:int = line[0]   #define column data as line
+                            x:float = line[1]
+                            y:float = line[2]
+                            env:int = line[3]
+                            numsight:int = line[4]
+                            edgea:int = line[5]
+                            edgeb:int = line[6]
+                            water:int = line[7]
+                            gdist:float = line[8]
+                            
+                            self.list_of_locations .append([(nodenum), (x), (y), (env), (numsight), (edgea), (edgeb), (water), (gdist)])
+                            if line[5] != '':
+                                self.edges_data .append([int(edgea), int(edgeb), int(water)])
+                            self.distance_data .append([nodenum,edgea,edgeb,gdist])
+                            if line[1] != '':
+                                self.cords .append((float(x), float(y)))
                             if line[0] != '':
-                                nodenum = int(line[0])   #define column data as line
-                                x = float(line[1])
-                                y = float(line[2])
-                                env = int(line[3])
-                                numsight = int(line[4])
-
-                            edgea = int(line[5])
-                            edgeb = int(line[6])
-                            water = line[7]
-                            gdist= line[8]
-
-                            self.list_of_locations .append([nodenum, x, y, env, numsight, edgea, water, gdist])
-                            self.cords.append([x,y])
-                            self.edges_data .append([edgea, edgeb, water])
-                            self.num_of_sightings.append(numsight)
-                            self.distance_data .append([nodenum,edgea,gdist])
-                            self.graph[nodenum] = []
+                                self.num_of_sightings .append([numsight])
                             if not nodenum in self.nodepoints:
                                 self.nodepoints.append(nodenum)
                             index += 1
-
-
+    
+                            
         data.close
 
 
-
-read = monitor(50)
-
-
-
-
-#bubblesort in decendind order
-def Bubble_Sort(unsorted_list):
-
-    for i in range(0,len(unsorted_list)-1):
-        for j in range(len(unsorted_list)-1):
-            if(unsorted_list[j]<unsorted_list[j+1] ):
-                temp_storage = unsorted_list[j]
-                unsorted_list[j] = unsorted_list[j+1]
-                unsorted_list[j+1] = temp_storage
-
-
-    return unsorted_list
-
-cm=monitor(size)
-unsorted_list = cm.num_of_sightings
-
-
-
-''' Finds the distance between each edge on graph. There are some '''
 def find_distance():
-    distance = []
-    cords = cm.cords
-    edges = cm.edges_data
-    for count, edge in enumerate(edges):
-        x1 = cords[edge[0]-1][0]
-        y1 = cords[edge[0]-1][1]
-
-        x2 = cords[edge[1]-1][0]
-        y2 = cords[edge[1]-1][1]
-
-        # distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5
-        distance = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-        cm.gdist.append(distance)
-        cm.edges_data[count].insert(2,distance)
-
-        print(
-            f"{count} distance between node: {edge[0]} : x1: {cm.cords[edge[0]-1][0]} y1: {cm.cords[edge[0]-1][1]} and node: {edge[1]} : x2: {cm.cords[edge[1]-1][0]} y2: {cm.cords[edge[1]-1][1]} is {distance}")
-
-
-find_distance()
-
+        distance = []
+        cords = cm.cords
+        for i in range (0, ((len(cords))-1)):
+            # distance = ((cm.dis[i][0] - cm.dis[i+1][0])**2 + (cm.dis[i][1] - cm.dis[i+1][1])**2)**0.5
+            distance = math.sqrt(((cords[i][0]) - (cords[i+1][0]))**2 + ((cords[i][1]) - (cords[i+1][1]))**2)
+            cm.gdist. append(distance)
+        for i in range ((len(cm.gdist))):
+            print(f"distance between point: {i+1} : x1: {cm.cords[i][0]} y1: {cm.cords[i][1]} and point: {i+2} : x2: {cm.cords[i+1][0]} y2: {cm.cords[i+1][1]} is {cm.gdist[i]}")
+        # return distance
 
 
 # def location_check(self, a, b):
